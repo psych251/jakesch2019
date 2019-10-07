@@ -265,6 +265,7 @@ div.tocify {
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<p><em>Please note: I’ve included several <a href="#footnotes">footnotes</a>, in blue, to further explain my plan for the project.</em></p>
 <div id="justification-and-relevance-to-research" class="section level3">
 <h3>Justification and Relevance to Research</h3>
 <p>I have chosen a paper from the 2019 ACM CHI Conference<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. This paper (“AI-Mediated Communication: How the Perception that Profile Text was Written by AI Affects Trustworthiness”) shows evidence for what the authors call “The Replicant Effect”: that the belief that a piece of text (in their case, a profile for an AirBnB host) is AI-generated decreases reported trust, but only if participants believe it is part of a <em>mixed set</em> where <em>only some</em> of the pieces of text are AI-generated. If participants are told that <em>all</em> profiles are AI-generated, the reported trust does not differ from the case where they are told that all profiles are human-generated. A large part of my future research agenda will be to measure user preferences and opinions that might influence the adoption of new technologies enabled by recent advances in machine learning. Machine learning systems are becoming much better at generating human-like text, which has some exciting applications, but is also a source of great concern (especially in the context of political disinformation). This particular result gives interesting context about when users find the use of AI-generated text acceptable and unacceptable, and I think attempting to replicate it would be interesting both to myself and to the broader research communities for Human-Computer Interaction and Human-Centered AI.</p>
@@ -308,14 +309,80 @@ I am a musician that travels with my band a lot. I have a place in Hawaii as wel
 </div>
 <div id="challenges-concerns" class="section level3">
 <h3>Challenges / Concerns</h3>
-<p>From a technical standpoint, coding and running the experiment is within my comfort level<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. The authors have made their data, analysis and the AirBnB profiles available (though not the exact stimuli / webpages used in the experiment): <a href="https://osf.io/qg3m2/" class="uri">https://osf.io/qg3m2/</a> . However the statistical aspect would be challenging and a good learning experience, since I am not at all familiar with how to use or analyze GLMMs<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. My main concern about replicating this paper that is the sample size used in the original paper’s Experiment 3 (323 participants, 6 minutes each - 32.3 person-hours of labour) is larger than what is feasible given the course project budget. A preliminary power analysis done with the help of one of the TAs (Julie) indicated that since the observed effect size is large, it might be possible to replicate the experiment with a smaller sample size. I could also focus on only one of the three treatment conditions. Another challenge is that succesfully replicating Experiment 3 will only confirm half of the ‘Replicant Effect’. It won’t show the negative case (that when participants believe that all profiles are AI-generated, they report the same level of trust as when they believe that they are all human-generated). This was done in the paper’s Experiment 1, by running an experiment with a very large sample size (N=527) that failed to reject the null hypothesis. My understanding is that using Bayesian statistical methods there are ways to run experiments that provide evidence that a certain effect does not exist, but I am not familiar with these methods - though I would be interested in exploring this as part of the project.</p>
+<p>From a technical standpoint, coding and running the experiment is within my comfort level<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. The authors have made their data, analysis and the AirBnB profiles available (though not the exact stimuli / webpages used in the experiment): <a href="http://osf.io/qg3m2/" class="uri">http://osf.io/qg3m2/</a> . However the statistical aspect would be challenging and a good learning experience, since I am not at all familiar with how to use or analyze GLMMs<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. My main concern about replicating this paper that is the sample size used in the original paper’s Experiment 3 (323 participants, 6 minutes each - 32.3 person-hours of labour) is larger than what is feasible given the course project budget. A preliminary power analysis done with the help of one of the TAs (Julie) indicated that since the observed effect size is large, it might be possible to replicate the experiment with a smaller sample size. I could also focus on only one of the three treatment conditions. Another challenge is that succesfully replicating Experiment 3 would only confirm half of the ‘Replicant Effect’. It would not confirm the negative case (that when participants believe that all profiles are AI-generated, they report the same level of trust as when they believe that they are all human-generated). This was done in the paper’s Experiment 1, by running an experiment with a very large sample size (N=527) that failed to reject the null hypothesis. My understanding is that using Bayesian statistical methods there are ways to run experiments that provide evidence that a certain effect does not exist, but I am not familiar with these methods - though I would be interested in exploring this as part of the project.</p>
 </div>
 </div>
 <div id="links" class="section level2">
 <h2>Links</h2>
-<p><strong>Repo:</strong> <a href="https://github.com/psych251/jakesch2019/" class="uri">https://github.com/psych251/jakesch2019/</a></p>
-<p><strong>Original Paper:</strong> <a href="https://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf" class="uri">https://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf</a> <!--
-
+<p><strong>Repo:</strong> <a href="http://github.com/psych251/jakesch2019/" class="uri">http://github.com/psych251/jakesch2019/</a></p>
+<p><strong>Original Paper:</strong> <a href="http://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf" class="uri">http://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf</a></p>
+<div id="power-analysis" class="section level3">
+<h3>Power Analysis</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="planned-sample" class="section level3">
+<h3>Planned Sample</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="materials" class="section level3">
+<h3>Materials</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="procedure" class="section level3">
+<h3>Procedure</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="analysis-plan" class="section level3">
+<h3>Analysis Plan</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="differences-from-original-study" class="section level3">
+<h3>Differences from Original Study</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="methods-addendum-post-data-collection" class="section level3">
+<h3>Methods Addendum (Post Data Collection)</h3>
+<p><strong>TODO</strong></p>
+<div id="actual-sample" class="section level4">
+<h4>Actual Sample</h4>
+<p><strong>TODO</strong></p>
+</div>
+<div id="differences-from-pre-data-collection-methods-plan" class="section level4">
+<h4>Differences from pre-data collection methods plan</h4>
+<p><strong>TODO</strong></p>
+</div>
+</div>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p><strong>TODO</strong></p>
+<div id="data-preparation" class="section level3">
+<h3>Data preparation</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="confirmatory-analysis" class="section level3">
+<h3>Confirmatory analysis</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="exploratory-analyses" class="section level3">
+<h3>Exploratory analyses</h3>
+<p><strong>TODO</strong></p>
+</div>
+</div>
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p><strong>TODO</strong></p>
+<div id="summary-of-replication-attempt" class="section level3">
+<h3>Summary of Replication Attempt</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="commentary" class="section level3">
+<h3>Commentary</h3>
+<p><strong>TODO</strong></p>
+</div>
+<div id="footnotes" class="section level3">
+<h3>Footnotes</h3>
+<!--
 ###Power Analysis
 
 Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
@@ -381,15 +448,16 @@ Open the discussion section with a paragraph summarizing the primary result from
 ### Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
---></p>
+-->
+</div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>One of the largest and most selective publication venues in my field, for details see: <a href="https://tinyurl.com/justify-chi" class="uri">https://tinyurl.com/justify-chi</a> and <a href="https://tinyurl.com/justify-chi-one-pager" class="uri">https://tinyurl.com/justify-chi-one-pager</a> .<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>One of the largest and most selective publication venues in my field, for details see: <a href="http://tinyurl.com/justify-chi" class="uri">http://tinyurl.com/justify-chi</a> and <a href="http://tinyurl.com/justify-chi-one-pager" class="uri">http://tinyurl.com/justify-chi-one-pager</a> .<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>These were drawn from a larger corpus of real, human-generated AirBnB profiles and then, in a previous mTurk task, separated into two groups based on how likely crowd workers thought they were to be AI-generated, using the same AI score question as in the <em>primed condition</em>. Each participant will be shown five profiles that are randomly selected from the fifteen highest and lowest scoring profiles (see Table 1 for two examples).<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>I can adapt the project to try and make it more technically challenging if necessary (for example, measuring and analyzing differences in response time to see which profiles participants found difficult to classify, examining differences in response time between the three treatment conditions, or adapting a deep-learning-based language model to generate real “AI-generated” profiles).<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>For example it seems like a very large portion of the variance explained is due to differences between participants (R<sup>2</sup> = 0.0095 in the fixed effects model and R<sup>2</sup> = 0.4873 in the random effects model) - I’m not currently familiar enough with GLMMs to really understand the implications of this.<a href="#fnref4">↩</a></p></li>
+<li id="fn4"><p>For example it seems like a very large portion of the variance explained is due to differences between participants (R<sup>2</sup> = 0.0095 in the fixed effects model compared with R<sup>2</sup> = 0.4873 in the random effects model) - I’m not currently familiar enough with GLMMs to really understand the implications of this.<a href="#fnref4">↩</a></p></li>
 </ol>
 </div>
 

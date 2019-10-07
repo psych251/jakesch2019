@@ -12,12 +12,13 @@ output:
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
-##Introduction
 
+##Introduction
+*Please note: I've included several [footnotes](#footnotes), in blue, to further explain my plan for the project.*
   
 ###Justification and Relevance to Research
 
-I have chosen a paper from the 2019 ACM CHI Conference^[One of the largest and most selective publication venues in my field, for details see: https://tinyurl.com/justify-chi and https://tinyurl.com/justify-chi-one-pager .]. This paper ("AI-Mediated Communication: How the Perception
+I have chosen a paper from the 2019 ACM CHI Conference^[One of the largest and most selective publication venues in my field, for details see: http://tinyurl.com/justify-chi and http://tinyurl.com/justify-chi-one-pager .]. This paper ("AI-Mediated Communication: How the Perception
 that Profile Text was Written by AI Affects
 Trustworthiness") shows evidence for what the authors call "The Replicant Effect": that the belief that a piece of text (in their case, a profile for an AirBnB host) is AI-generated decreases reported trust, but only if participants believe it is part of a *mixed set* where *only some* of the pieces of text are AI-generated. If participants are told that *all* profiles are AI-generated, the reported trust does not differ from the case where they are told that all profiles are human-generated. A large part of my future research agenda will be to measure user preferences and opinions that might influence the adoption of new technologies enabled by recent advances in machine learning. Machine learning systems are becoming much better at generating human-like text, which has some exciting applications, but is also a source of great concern (especially in the context of political disinformation). This particular result gives interesting context about when users find the use of AI-generated text acceptable and unacceptable, and I think attempting to replicate it would be interesting both to myself and to the broader research communities for Human-Computer Interaction and Human-Centered AI.
 
@@ -40,16 +41,67 @@ knitr::kable(reviews,caption="Table 1: The top 'human-like' and 'AI-like' sample
 
 ###Challenges / Concerns
 
-From a technical standpoint, coding and running the experiment is within my comfort level^[I can adapt the project to try and make it more technically challenging if necessary (for example, measuring and analyzing differences in response time to see which profiles participants found difficult to classify, examining differences in response time between the three treatment conditions, or adapting a deep-learning-based language model to generate real "AI-generated" profiles).]. The authors have made their data, analysis and the AirBnB profiles available (though not the exact stimuli / webpages used in the experiment): https://osf.io/qg3m2/ .
-However the statistical aspect would be challenging and a good learning experience, since I am not at all familiar with how to use or analyze GLMMs^[For example it seems like a very large portion of the variance explained is due to differences between participants (R^2^ = 0.0095 in the fixed effects model and R^2^ = 0.4873 in the random effects model) - I'm not currently familiar enough with GLMMs to really understand the implications of this.]. My main concern about replicating this paper that is the sample size used in the original paper's Experiment 3 (323 participants, 6 minutes each - 32.3 person-hours of labour) is larger than what is feasible given the course project budget. A preliminary power analysis done with the help of one of the TAs (Julie) indicated that since the observed effect size is large, it might be possible to replicate the experiment with a smaller sample size. I could also focus on only one of the three treatment conditions. Another challenge is that succesfully replicating Experiment 3 will only confirm half of the 'Replicant Effect'. It won't show the negative case (that when participants believe that all profiles are AI-generated, they report the same level of trust as when they believe that they are all human-generated). This was done in the paper's Experiment 1, by running an experiment with a very large sample size (N=527) that failed to reject the null hypothesis. My understanding is that using Bayesian statistical methods there are ways to run experiments that provide evidence that a certain effect does not exist, but I am not familiar with these methods - though I would be interested in exploring this as part of the project. 
+From a technical standpoint, coding and running the experiment is within my comfort level^[I can adapt the project to try and make it more technically challenging if necessary (for example, measuring and analyzing differences in response time to see which profiles participants found difficult to classify, examining differences in response time between the three treatment conditions, or adapting a deep-learning-based language model to generate real "AI-generated" profiles).]. The authors have made their data, analysis and the AirBnB profiles available (though not the exact stimuli / webpages used in the experiment): http://osf.io/qg3m2/ .
+However the statistical aspect would be challenging and a good learning experience, since I am not at all familiar with how to use or analyze GLMMs^[For example it seems like a very large portion of the variance explained is due to differences between participants (R^2^ = 0.0095 in the fixed effects model compared with R^2^ = 0.4873 in the random effects model) - I'm not currently familiar enough with GLMMs to really understand the implications of this.]. My main concern about replicating this paper that is the sample size used in the original paper's Experiment 3 (323 participants, 6 minutes each - 32.3 person-hours of labour) is larger than what is feasible given the course project budget. A preliminary power analysis done with the help of one of the TAs (Julie) indicated that since the observed effect size is large, it might be possible to replicate the experiment with a smaller sample size. I could also focus on only one of the three treatment conditions. Another challenge is that succesfully replicating Experiment 3 would only confirm half of the 'Replicant Effect'. It would not confirm the negative case (that when participants believe that all profiles are AI-generated, they report the same level of trust as when they believe that they are all human-generated). This was done in the paper's Experiment 1, by running an experiment with a very large sample size (N=527) that failed to reject the null hypothesis. My understanding is that using Bayesian statistical methods there are ways to run experiments that provide evidence that a certain effect does not exist, but I am not familiar with these methods - though I would be interested in exploring this as part of the project. 
 
 ## Links
 
-**Repo:** https://github.com/psych251/jakesch2019/
+**Repo:** http://github.com/psych251/jakesch2019/
 
-**Original Paper:** https://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf
+**Original Paper:** http://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf
+
+
+###Power Analysis
+**TODO**
+
+###Planned Sample
+**TODO**
+
+###Materials
+**TODO**
+
+###Procedure	
+**TODO**
+
+###Analysis Plan
+**TODO**
+
+###Differences from Original Study
+**TODO**
+
+### Methods Addendum (Post Data Collection)
+**TODO**
+
+#### Actual Sample
+**TODO**
+
+#### Differences from pre-data collection methods plan
+**TODO**
+
+##Results
+**TODO**
+
+### Data preparation
+**TODO**
+
+### Confirmatory analysis
+**TODO**
+
+###Exploratory analyses
+**TODO**
+
+## Discussion
+**TODO**
+
+### Summary of Replication Attempt
+**TODO**
+
+### Commentary
+**TODO**
+
+### Footnotes {#footnotes}
+
 <!--
-
 ###Power Analysis
 
 Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
