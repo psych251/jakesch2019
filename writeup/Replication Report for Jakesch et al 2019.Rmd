@@ -12,20 +12,64 @@ output:
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
+## Introduction
 
-##Introduction
-*Please note: I've included several [footnotes](#footnotes), in blue, to further explain my plan for the project.*
-  
-###Justification and Relevance to Research
+In the ACM CHI 2019 paper "AI-Mediated Communication: How the Perception that Profile Text was Written by AI Affects Trustworthiness"  (Jakesch et. al. 2019), the authors conducted a Wizard-of-Oz crowdworker study to test the hypothesis that users would react to text from an online marketplace listing differently when they believed this text had been generated automatically using "artificial intelligence" (AI) ^[Otherwise known as machine learning or statistical function approximation.]. In particular, they investigated whether the belief that an AirBnB host profile was written by AI would decrease the perceived trustworthiness of the host described in the profile. They found evidence for what they called the "Replicant Effect": that the belief that a profile was written by AI decreased perceived trustworthiness, but *only* for the case where participants believed that some, but not all profiles were written by AI.
+ 
+In this replication, we focus on independently confirming one part of the Replicant Effect - that when presented with a mixed set containing both "human-generated" and "AI-generated" profiles, participants will assign lower trustworthiness to those profiles that seem the most "AI-like". We do this by replicating Experiment 3 from the original paper, which found that "AI-like" papers were given significantly significantly lower trustworthiness scores by participants in three treatment conditions where they were told that a subset of the profiles they were rating were AI-generated^[In reality, all of the profiles were human-generated.]. We focus on the "primed" treatment condition of Experiment 3, which resulted in the largest observed effect size  In this treatment, participants are asked to rate how likely they believed it was that each profile had been written by AI before they assigned it a trustworthiness rating.
 
-I have chosen a paper from the 2019 ACM CHI Conference^[One of the largest and most selective publication venues in my field, for details see: http://tinyurl.com/justify-chi and http://tinyurl.com/justify-chi-one-pager .]. This paper ("AI-Mediated Communication: How the Perception
-that Profile Text was Written by AI Affects
-Trustworthiness") shows evidence for what the authors call "The Replicant Effect": that the belief that a piece of text (in their case, a profile for an AirBnB host) is AI-generated decreases reported trust, but only if participants believe it is part of a *mixed set* where *only some* of the pieces of text are AI-generated. If participants are told that *all* profiles are AI-generated, the reported trust does not differ from the case where they are told that all profiles are human-generated. A large part of my future research agenda will be to measure user preferences and opinions that might influence the adoption of new technologies enabled by recent advances in machine learning. Machine learning systems are becoming much better at generating human-like text, which has some exciting applications, but is also a source of great concern (especially in the context of political disinformation). This particular result gives interesting context about when users find the use of AI-generated text acceptable and unacceptable, and I think attempting to replicate it would be interesting both to myself and to the broader research communities for Human-Computer Interaction and Human-Centered AI.
+We leave to future work a replication of the other half of the Replicant Effect - that when participants are presented with a sample of profiles and told that all the profiles are AI-generated, then they assign the same trustworthiness ratings as when they believe that all the profiles are human-written.
 
-###Methods
+### Links
+See http://rpubs.com/jritch/jakesch2019_proposal for the original project proposal.
 
-The experiment will be run on Amazon Mechanical Turk (mTurk). Each participant will be shown ten AirBnB profiles, five of which are "human-like" and five of which are "AI-like"^[These were drawn from a larger corpus of real, human-generated AirBnB profiles and then, in a previous mTurk task, separated into two groups based on how likely crowd workers thought they were to be AI-generated, using the same AI score question as in the *primed condition*. Each participant will be shown five profiles that are randomly selected from the fifteen highest and lowest scoring profiles (see Table 1 for two examples).] (see Table 1). 
-There are four between-participant conditions - a *control* condition where participants are told that all profiles are human-generated, an *unlabeled* condition where participants are told that some are "AI-generated" (but not which ones), a *labeled* condition where they are told which profiles are "AI-generated" and a *primed* condition where participants give each profile a Likert scale *AI score* (ranging from "Definitely Human-written" to "Definitely AI-generated") before they indicate how much they trust that profile. For each profile they will report a trustworthiness score based on the mean of three Likert scale questions (about the host's *ability*, *benevolence*, and *integrity*). They will also complete two sets of questions at the end of the experiment to measure their attitude toward AI and their generalized trust level. I will then fit a generalized linear mixed model (GLMM) with per-participant random effects to analyze the profile trustworthiness scores (in the original paper this analysis found significant interaction effects - i.e., all three treatment conditions caused a decrease in reported trust, but only for the "AI-like" host profiles).
+See http://github.com/psych251/jakesch2019 for the complete project.
+
+
+## Methods
+
+### Power Analysis
+
+To be conducted during the week of Oct 21, after this material is covered in class.
+
+The original paper reports a large effect size in Experiment 3 (total R^2^ = 0.48), so we anticipate that a power analysis will show that smaller sample is needed than in the original study.
+
+In terms of feasibility, the original experiment required 323 participants working for six minutes each, resulting in 32.3 person-hours of work in total, which is not feasible given the budget available for the project. This is why this replication focuses on only one of the three treatment conditions.
+
+### Planned Sample
+
+Based on the power analysis, we planned to recruit [*TO BE DETERMINED*] participants.
+
+As in the original paper, we recruited participants from Amazon Mechanical Turk. We used the participation criteria from the original paper:
+
+> "Participation was limited to adults in the US who had completed at least 500 tasks with an approval rate of >= 98%."
+
+### Materials
+
+We used the materials described in the original paper.
+
+To explain the Wizard-of-Oz AI system to the participants in the treatment condition, we used the explanation and demo video from the original experiment:
+
+>"In the final design, we explained the AI system as follows: 'To help hosts create profiles that are more attractive, this site provides a computer system using artificial intelligence that will write the description for hosts. The hosts simply enter some information and the artificial intelligence system generates the profile.' The participants in the treatment group then watched a 10-second demo video of a mock-up AI system... In the video, an animation depicts a system automatically generating text for an Airbnb profile from a Facebook profile"
+
+We used the three-point trustworthiness rating scale created for the original experiment:
+
+>"1. This person maintains a clean, safe, and comfortable household.
+2. This person will be concerned about satisfying my needs during the stay.
+3. This person will not intentionally harm, overcharge, or scam me."
+
+And also used the generalized trust and AI attitude scales that were used in the original experiment. In the treatment condition, we used the AI score measurement described in the original study:
+
+> '...respondents indicated whether they thought each profile was (1) "Definitely Human-written" to (6) "Definitely AI-generated" on a 6-point Likert-style scale. We refer to this measurement as the "AI score" of a profile." '
+
+We used the original set of 30 sample profiles from the original paper's Experiment 3, which we downloaded from the project's OSF repository. These had been determined in a previous mTurk task to be the 15 most "AI-like" and 15 most "human-like" from a larger sample of profiles, using the AI score measurement described above (see Table 1 for an example).
+
+A variety of other questions were also asked, as in the original study:
+
+> "Participants also answered demographic questions (gender, age, education, and residential neighborhood type), as well as free-form questions explaining how they rated the profiles. We finally asked what they thought was the purpose of this study, and, in the treatment group, whether they had comments on the system."
+
+We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not included in the authors' publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.
+
 
 ```{r, include=FALSE}
 library(dplyr)
@@ -39,35 +83,40 @@ knitr::kable(reviews,caption="Table 1: The top 'human-like' and 'AI-like' sample
 ```
 
 
-###Challenges / Concerns
+### Procedure
 
-From a technical standpoint, coding and running the experiment is within my comfort level^[I can adapt the project to try and make it more technically challenging if necessary (for example, measuring and analyzing differences in response time to see which profiles participants found difficult to classify, examining differences in response time between the three treatment conditions, or adapting a deep-learning-based language model to generate real "AI-generated" profiles).]. The authors have made their data, analysis and the AirBnB profiles available (though not the exact stimuli / webpages used in the experiment): http://osf.io/qg3m2/ .
-However the statistical aspect would be challenging and a good learning experience, since I am not at all familiar with how to use or analyze GLMMs^[For example it seems like a very large portion of the variance explained is due to differences between participants (R^2^ = 0.0095 in the fixed effects model compared with R^2^ = 0.4873 in the random effects model) - I'm not currently familiar enough with GLMMs to really understand the implications of this.]. My main concern about replicating this paper that is the sample size used in the original paper's Experiment 3 (323 participants, 6 minutes each - 32.3 person-hours of labour) is larger than what is feasible given the course project budget. A preliminary power analysis done with the help of one of the TAs (Julie) indicated that since the observed effect size is large, it might be possible to replicate the experiment with a smaller sample size. I could also focus on only one of the three treatment conditions. Another challenge is that succesfully replicating Experiment 3 would only confirm half of the 'Replicant Effect'. It would not confirm the negative case (that when participants believe that all profiles are AI-generated, they report the same level of trust as when they believe that they are all human-generated). This was done in the paper's Experiment 1, by running an experiment with a very large sample size (N=527) that failed to reject the null hypothesis. My understanding is that using Bayesian statistical methods there are ways to run experiments that provide evidence that a certain effect does not exist, but I am not familiar with these methods - though I would be interested in exploring this as part of the project. 
+We followed the procedure from the original paper exactly (except that we only had one treatment group, instead of three):
 
-## Links
+>"We randomly assigned participants to one of four groups [*note: two in the replication study*]: The control group participants were told they were rating regular profiles written by the host (akin to the "host-written" group in Study 1). In the treatment groups, participants were told that "some of the profiles [they] see have been generated by a computer system using artificial intelligence, while others have been written by the host." Treatment group participants also viewed the [demo video]."
 
-**Repo:** http://github.com/psych251/jakesch2019/
+> "We performed a manipulation check to verify that the participants in the treatment condition understood that a profile had been generated."
 
-**Original Paper:** http://github.com/psych251/jakesch2019/blob/master/original_paper/jakesch2019.pdf
+After the introduction to the experiment, participants then completed the trustworthiness rating questions (see Materials):  
+
+> "Participants rated 10 profiles in randomized order: five 'AI' profiles (out of the 15 profiles rated as AI-like in the preliminary selection) and five 'human' profiles (out of the 15 profiles rated human-like)..."
+
+> "Subjects in the primed condition were not shown any labels, but we asked them... to rate the AI score of a profile before they rated the host's trustworthiness."
+
+After they rated all ten profiles, participants answered the generalized trust and AI attitude scales, and answered the demographic and open-ended questions from the original study.
 
 
-###Power Analysis
-**TODO**
+### Planned Analysis 
 
-###Planned Sample
-**TODO**
+We followed the exclusion criteria from the original paper:
 
-###Materials
-**TODO**
+> "We excluded responses that had failed the linguistic attentiveness check borrowed from Munro et al. [43] as well as participants who did not select the right scenario ("I am traveling and the person in the profile offers to host me.") in a second attentiveness test. We excluded workers whose median rating time per profile was less than five seconds and workers with mostly uniform responses (SD < 5.0). Furthermore, we removed participants whose average trust rating fell outside the mean +/- 2 SD statistic of participant rating averages, leaving us with 389 subjects."
 
-###Procedure	
-**TODO**
+We contacted the authors to ask for the exact wording of their attentiveness tests (since it is not clear from the source they refer to which exact linguistic attentiveness check was used).
 
-###Analysis Plan
-**TODO**
+The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. (We first calculated Cronbach's alpha for the three items to validate that this was acceptable).
 
-###Differences from Original Study
-**TODO**
+Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants' trustworthiness ratings: `lme(rating ~ profile_type * condition, random=~ 1|subject)`.
+
+### Differences from original study
+
+We used a lower rate of compensation than the original study (7.25 USD/hour in the replication compared to 12 USD/hour in the original study), which may have resulted in quicker and less thoroughly considered answers if the crowd workers compensated for the lower rate of pay by completing the task more quickly. However, we don't expect that this significantly impacted the results.
+
+Because of the limited resources available for the replication, we only replicated one of the three treatment conditions ("labeled", "unlabeled" and "primed') from the original paper  (the "primed" condition). However, since the three treatment conditions produced similar results in the original study, and the 'primed' treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.
 
 ### Methods Addendum (Post Data Collection)
 **TODO**
@@ -78,14 +127,27 @@ However the statistical aspect would be challenging and a good learning experien
 #### Differences from pre-data collection methods plan
 **TODO**
 
-##Results
-**TODO**
+### Results
 
-### Data preparation
-**TODO**
+## Data Preparation
 
-### Confirmatory analysis
-**TODO**
+We excluded responses that met the exclusion criteria described in the original paper. 
+
+For each profile, the mean of the three items in the trustworthiness scale was calculated and used as an overall trustworthiness rating, as done in the original study.
+
+## Confirmatory Analysis
+
+As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see Table 2). 
+
+We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).
+
+[*Single test and justification*: If we find that the Profile Type x Primed interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]
+
+
+```{r, echo=FALSE}
+reviews <- tibble("AI Score"=c("5 (most AI-like)", "1.75 (most human-like)"), "Profile Text"=c("Hey, I'm an health nut and entrepreneur. Enjoy cooking, reading, writing. Favorite restaurant nearby: Momofuku Ssam bar. Favorite weird activity nearby: Russian Baths on E. 10th St. Heaven is three grocery stores and a farmer's market within two blocks (Trader Joe's, Whole Foods, Westside Market, farmer's market", "I am a musician that travels with my band a lot. I have a place in Hawaii as well that I spend time in. I'm clean. funky. and a fun artist. Love yoga, books, writing, singing, dancing, dj'ing, art, and the list goes onnn. "))
+#knitr::kable(reviews,caption="Table 1: The top 'human-like' and 'AI-like' sample profiles used in Experiment 3.") %>%  column_spec(1, width="12em")
+```
 
 ###Exploratory analyses
 **TODO**
