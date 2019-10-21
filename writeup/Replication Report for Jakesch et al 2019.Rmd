@@ -137,7 +137,7 @@ For each profile, the mean of the three items in the trustworthiness scale was c
 
 ## Confirmatory Analysis
 
-As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see Table 2). 
+As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see Table 2 [*note: Table 2 will contain the intercept, coefficients, SE and R^2^ values for the GLMM, as well as indications of which terms are significant.*]). 
 
 We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).
 
