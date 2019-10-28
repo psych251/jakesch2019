@@ -36,7 +36,7 @@ See https://workersandbox.mturk.com/requesters/A38O2BV2MPHCQD/projects?ref=w_pl_
 
 ### Power Analysis
 
-To be conducted on Monday Oct 29 after power analysis is covered in class.
+To be conducted on Monday Oct 28 after power analysis is covered in class.
 
 The original paper reports a large effect size in Experiment 3 (total R^2^ = 0.48), so we anticipate that a power analysis will show that smaller sample is needed than in the original study.
 
@@ -118,17 +118,17 @@ We followed the exclusion criteria from the original paper:
 
 > "We excluded responses that had failed the linguistic attentiveness check borrowed from Munro et al. [43] as well as participants who did not select the right scenario ("I am traveling and the person in the profile offers to host me.") in a second attentiveness test. We excluded workers whose median rating time per profile was less than five seconds and workers with mostly uniform responses (SD < 5.0). Furthermore, we removed participants whose average trust rating fell outside the mean +/- 2 SD statistic of participant rating averages, leaving us with 389 subjects."
 
-We contacted the authors to ask for the exact wording of their attentiveness tests (since it is not clear from the source they refer to which exact linguistic attentiveness check was used).
+We contacted the authors to ask for the exact wording of their attentiveness tests (since it is not clear what exactly the scenario description given for the second attentiveness test was).
 
 The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. (We first calculated Cronbach's alpha for the three items to validate that this was acceptable).
 
-Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants' trustworthiness ratings: `lme(meanScore ~ ai * condition, random=~ 1|subject)`.
+Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants' trustworthiness ratings: `lme(meanScore ~ ai * condition, random=~ 1|ResponseId)`.
 
 ### Differences from original study
 
 We used a lower rate of compensation than the original study (7.25 USD/hour in the replication compared to 12 USD/hour in the original study), which may have resulted in quicker and less thoroughly considered answers if the crowd workers compensated for the lower rate of pay by completing the task more quickly. However, we don't expect that this significantly impacted the results.
 
-Because of the limited resources available for the replication, we only replicated one of the three treatment conditions ("labeled", "unlabeled" and "primed') from the original paper  (the "primed" condition). However, since the three treatment conditions produced similar results in the original study, and the 'primed' treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.
+Because of the limited resources available for the replication, we only replicated one of the three treatment conditions ("labeled", "unlabeled" and "primed') from the original paper (the "primed" condition). However, since the three treatment conditions produced similar results in the original study, and the 'primed' treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.
 
 During analysis of the pilot data I realized that there were some issues with the randomization of the different conditions. In the original experiment, participants saw 5 of the 15 "AI-generated" profiles and 5 of the 15 "human-generated" profiles, in a random order. The way I currently have the Qualtrics survey set up, the participants see the ten profiles in two blocks each (5 of the 15 "human" profiles and 5 of the 15 "AI" profiles). The order within these blocks is randomized, as is the order of the blocks, but the "human" and "AI" profiles are not mixed together as they were in the original. I will fix this error in randomization ahead of pilot B, since it might otherwise create an experimental confound. This might result in me changing some of my code for processing the raw Qualtrics data, but the rest of the code should be unchanged.
 
@@ -151,7 +151,7 @@ For each profile, the mean of the three items in the trustworthiness scale was c
 
 
 ```{r}
-responses <- read.csv(file="pilot_data_7_responses.csv") %>% 
+responses <- read.csv(file="pilot_data_8_responses.csv") %>% 
   # filter out the Qualtrics header info lines
   # select only the columns needed for the confirmatory analysis
   filter(!between(row_number(),1,2)) %>% 
@@ -162,7 +162,8 @@ responses <- read.csv(file="pilot_data_7_responses.csv") %>%
     Consent == 'I CONSENT to take part in the study.',
     debrief_agree == "I AGREE that the data collected during the study may be included for the purpose of the study.",
     att_check_1 == "John is easy to see.",
-    att_check_2 == "I am traveling and the person in the profile offers to host me."
+    att_check_2 == "I am traveling and the person in the profile offers to host me.",
+    (ai_comprehension == "Some were generated by the AI system, some were written by the host." | ai_comprehension == "")
   ) %>%
   select(starts_with("X"), -contains("ai_score"), c("ResponseId"))
 
@@ -195,7 +196,7 @@ long_responses_grouped <- long_responses %>%
 # for each participant, calculate their average trustworthiness rating
 # and the std. deviation of their ratings
 participant_average_rating = long_responses_grouped %>% group_by(ResponseId) %>% summarize(meanRating = mean(meanScore),
-          sdRating = sd(meanScore)                                                          )
+          sdRating = sd(meanScore))
 # calculate the mean std. deviation and mean 
 # of ALL per-participant average trustworthiness ratings
 rating_mean = mean(participant_average_rating$meanRating)
@@ -208,7 +209,7 @@ participants_to_exclude = participant_average_rating %>% filter((meanRating > ra
 
 # for participants in the control condition, we only care about the "Page.Submit"
 # value of each rating question page
-control_timing_data <- responses %>% gather(time_interval, time, contains("timing_"), -contains("Click")) %>% select(time_interval,time,ResponseId) %>% group_by(ResponseId) %>% summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %>% filter(meanRatingTime > 0)
+control_timing_data <- responses %>% gather(time_interval, time, contains("timing_"), -contains("Click")) %>% select(time_interval,time,ResponseId) %>% group_by(ResponseId) %>% summarize(medianRatingTime = median(as.numeric(time),na.rm=T)) %>% filter(medianRatingTime > 0)
 
 # For participants in the primed condition, we have to add up the values for the time 
 # They spend on the AI Score rating and the Trustworthiness rating
@@ -218,12 +219,12 @@ primed_timing_data <- responses %>%
   select(time_interval,time,ResponseId,profile_number) %>% group_by(ResponseId,profile_number) %>%  
   summarize(time = sum(as.numeric(time), na.rm = T)) %>% 
   ungroup() %>% group_by(ResponseId) %>% 
-  summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %>% filter(meanRatingTime > 0)
+  summarize(medianRatingTime = median(as.numeric(time),na.rm=T)) %>% filter(medianRatingTime > 0)
 
 # combine both sets of timing data
 timing_data = rbind(control_timing_data,primed_timing_data)
 
-participants_to_exclude_based_on_timing <- timing_data %>% filter (meanRatingTime < 5.0) %>% select(ResponseId)
+participants_to_exclude_based_on_timing <- timing_data %>% filter (medianRatingTime < 5.0) %>% select(ResponseId)
 
 # combine this list of participants with
 # the list of those excluded based on their rating values
@@ -240,7 +241,7 @@ As described in the planned analysis section we fit a GLMM to the participants t
 
 <!--We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).-->
 
-I obtained seven pilot responses. Two were from others (I posted a link to my Qualtrics survey on Facebook) and five were from myself. One is excluded from the analysis because of the low standard deviation of the responses. 
+I obtained eight pilot responses. Three were from other people (I posted a link to my Qualtrics survey on Facebook) and five were from myself. None of the other people reported issues, but I noticed a few problems that I fixed (missing question text, inconsistent default slider values, etc.). One response is excluded from the analysis because of the low standard deviation of the ratings. 
 
 Using the pilot data, we see no significant terms in the GLM model. When I ran an initial pilot with two responses generated by me (one per condition), where I consciously tried to put in data that would match the hypothesis, the model didn't give any signficant results, but did have coefficients with the magnitudes and signs that I expected. (Beta_intercept = 75.3, Beta_ai = 8.67, Beta_primed = 10.0, Beta_primed_x_ai = 57.3 -- see the data in pilot_data_2_responses.csv).
 
