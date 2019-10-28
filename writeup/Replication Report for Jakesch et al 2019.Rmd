@@ -21,16 +21,22 @@ In this replication, we focus on independently confirming one part of the Replic
 We leave to future work a replication of the other half of the Replicant Effect - that when participants are presented with a sample of profiles and told that all the profiles are AI-generated, then they assign the same trustworthiness ratings as when they believe that all the profiles are human-written.
 
 ### Links
+
 See http://rpubs.com/jritch/jakesch2019_proposal for the original project proposal.
 
-See http://github.com/psych251/jakesch2019 for the complete project.
+See http://rpubs.com/jritch/jakesch2019 for the most recent project report.
 
+See http://github.com/psych251/jakesch2019 for the complete GitHub project.
+
+See https://stanforduniversity.qualtrics.com/jfe/form/SV_5uM01U1dpW8KJDv for the Qualtrics survey.
+
+See https://workersandbox.mturk.com/requesters/A38O2BV2MPHCQD/projects?ref=w_pl_prvw for the Amazon Mechanical Turk listing.
 
 ## Methods
 
 ### Power Analysis
 
-To be conducted during the week of Oct 21, after this material is covered in class.
+To be conducted on Monday Oct 29 after power analysis is covered in class.
 
 The original paper reports a large effect size in Experiment 3 (total R^2^ = 0.48), so we anticipate that a power analysis will show that smaller sample is needed than in the original study.
 
@@ -52,7 +58,7 @@ To explain the Wizard-of-Oz AI system to the participants in the treatment condi
 
 >"In the final design, we explained the AI system as follows: 'To help hosts create profiles that are more attractive, this site provides a computer system using artificial intelligence that will write the description for hosts. The hosts simply enter some information and the artificial intelligence system generates the profile.' The participants in the treatment group then watched a 10-second demo video of a mock-up AI system... In the video, an animation depicts a system automatically generating text for an Airbnb profile from a Facebook profile"
 
-We used the three-point trustworthiness rating scale created for the original experiment:
+We used the three-item trustworthiness rating scale created for the original experiment (each item ranged from 0-100):
 
 >"1. This person maintains a clean, safe, and comfortable household.
 2. This person will be concerned about satisfying my needs during the stay.
@@ -68,12 +74,19 @@ A variety of other questions were also asked, as in the original study:
 
 > "Participants also answered demographic questions (gender, age, education, and residential neighborhood type), as well as free-form questions explaining how they rated the profiles. We finally asked what they thought was the purpose of this study, and, in the treatment group, whether they had comments on the system."
 
-We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not included in the authors' publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.
+We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not all included in the authors' publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.
 
+Note - I found that many of the question prompts were available in the authors "data_study3.csv" file. However, I still need to contact them to get the few question wordings that are not there.
 
 ```{r, include=FALSE}
+library(stats)
+library(nlme)
 library(dplyr)
 library(kableExtra)
+library(tidyr)
+library(stringr) # useful for some string manipulation
+library(ggplot2)
+library(plotrix)
 ```
 
 
@@ -99,7 +112,6 @@ After the introduction to the experiment, participants then completed the trustw
 
 After they rated all ten profiles, participants answered the generalized trust and AI attitude scales, and answered the demographic and open-ended questions from the original study.
 
-
 ### Planned Analysis 
 
 We followed the exclusion criteria from the original paper:
@@ -110,13 +122,15 @@ We contacted the authors to ask for the exact wording of their attentiveness tes
 
 The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. (We first calculated Cronbach's alpha for the three items to validate that this was acceptable).
 
-Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants' trustworthiness ratings: `lme(rating ~ profile_type * condition, random=~ 1|subject)`.
+Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants' trustworthiness ratings: `lme(meanScore ~ ai * condition, random=~ 1|subject)`.
 
 ### Differences from original study
 
 We used a lower rate of compensation than the original study (7.25 USD/hour in the replication compared to 12 USD/hour in the original study), which may have resulted in quicker and less thoroughly considered answers if the crowd workers compensated for the lower rate of pay by completing the task more quickly. However, we don't expect that this significantly impacted the results.
 
 Because of the limited resources available for the replication, we only replicated one of the three treatment conditions ("labeled", "unlabeled" and "primed') from the original paper  (the "primed" condition). However, since the three treatment conditions produced similar results in the original study, and the 'primed' treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.
+
+During analysis of the pilot data I realized that there were some issues with the randomization of the different conditions. In the original experiment, participants saw 5 of the 15 "AI-generated" profiles and 5 of the 15 "human-generated" profiles, in a random order. The way I currently have the Qualtrics survey set up, the participants see the ten profiles in two blocks each (5 of the 15 "human" profiles and 5 of the 15 "AI" profiles). The order within these blocks is randomized, as is the order of the blocks, but the "human" and "AI" profiles are not mixed together as they were in the original. I will fix this error in randomization ahead of pilot B, since it might otherwise create an experimental confound. This might result in me changing some of my code for processing the raw Qualtrics data, but the rest of the code should be unchanged.
 
 ### Methods Addendum (Post Data Collection)
 **TODO**
@@ -135,14 +149,106 @@ We excluded responses that met the exclusion criteria described in the original 
 
 For each profile, the mean of the three items in the trustworthiness scale was calculated and used as an overall trustworthiness rating, as done in the original study.
 
+
+```{r}
+responses <- read.csv(file="pilot_data_7_responses.csv") %>% 
+  # filter out the Qualtrics header info lines
+  # select only the columns needed for the confirmatory analysis
+  filter(!between(row_number(),1,2)) %>% 
+  # filter out participants who did not consent 
+  # or who revoked consent after the debrief
+  # or who failed one of the two attention check questions
+  filter(
+    Consent == 'I CONSENT to take part in the study.',
+    debrief_agree == "I AGREE that the data collected during the study may be included for the purpose of the study.",
+    att_check_1 == "John is easy to see.",
+    att_check_2 == "I am traveling and the person in the profile offers to host me."
+  ) %>%
+  select(starts_with("X"), -contains("ai_score"), c("ResponseId"))
+
+long_responses <- responses %>% 
+  gather (measurement, score, -c("ResponseId")) %>% 
+  mutate(
+    score = as.numeric(score),
+    measurement = gsub('.{2}$', '', measurement), 
+    # ai is TRUE if the profile is "ai-generated, 
+    # and FALSE if the profile is "human-generated"
+    ai = grepl("ai", measurement), 
+    # condition is FALSE if the participant is in the control condition
+    # and TRUE if they are in the primed condition
+    condition = grepl("primed",measurement),
+    # this assigns each response a profile number that corresponds
+    # to the numbers from the original experiment's csv file
+    # profiles 0-15 are "AI", 16-30 are "human"
+    profile_number = as.numeric(sub("X([0-9]*)_.*","\\1",measurement)) 
+                    + 15 * (1 - as.numeric(ai)), 
+    # which of the three items on the 3-item trustworthiness scale is this? 
+    item_number = as.numeric(str_sub(measurement,-1,-1))
+  )
+
+long_responses_grouped <- long_responses %>%
+  group_by(ResponseId,profile_number,condition,ai) %>%
+  summarize(meanScore = mean(score, na.rm = T)) %>% 
+  filter(!is.na(meanScore)) %>% 
+  ungroup()
+
+# for each participant, calculate their average trustworthiness rating
+# and the std. deviation of their ratings
+participant_average_rating = long_responses_grouped %>% group_by(ResponseId) %>% summarize(meanRating = mean(meanScore),
+          sdRating = sd(meanScore)                                                          )
+# calculate the mean std. deviation and mean 
+# of ALL per-participant average trustworthiness ratings
+rating_mean = mean(participant_average_rating$meanRating)
+rating_sd = sd(participant_average_rating$meanRating)
+
+# get list of participants to exclude
+# based on either overly uniform scores, 
+# or on an extreme average score
+participants_to_exclude = participant_average_rating %>% filter((meanRating > rating_mean + 2 * rating_sd) | meanRating < (rating_mean - 2 * rating_sd) | (sdRating < 5.0) ) %>% select(ResponseId)
+
+# for participants in the control condition, we only care about the "Page.Submit"
+# value of each rating question page
+control_timing_data <- responses %>% gather(time_interval, time, contains("timing_"), -contains("Click")) %>% select(time_interval,time,ResponseId) %>% group_by(ResponseId) %>% summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %>% filter(meanRatingTime > 0)
+
+# For participants in the primed condition, we have to add up the values for the time 
+# They spend on the AI Score rating and the Trustworthiness rating
+primed_timing_data <- responses %>% 
+  gather(time_interval, time, contains("timing1"), contains("timing2"), -contains("Click")) %>% 
+  mutate(profile_number = as.numeric(sub("X([0-9]*)_.*","\\1",time_interval))) %>%
+  select(time_interval,time,ResponseId,profile_number) %>% group_by(ResponseId,profile_number) %>%  
+  summarize(time = sum(as.numeric(time), na.rm = T)) %>% 
+  ungroup() %>% group_by(ResponseId) %>% 
+  summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %>% filter(meanRatingTime > 0)
+
+# combine both sets of timing data
+timing_data = rbind(control_timing_data,primed_timing_data)
+
+participants_to_exclude_based_on_timing <- timing_data %>% filter (meanRatingTime < 5.0) %>% select(ResponseId)
+
+# combine this list of participants with
+# the list of those excluded based on their rating values
+participants_to_exclude = rbind(participants_to_exclude, participants_to_exclude_based_on_timing)
+
+# then filter them all out.
+processed_data <- long_responses_grouped %>% filter(!(ResponseId %in% participants_to_exclude$ResponseId))
+
+```
+
 ## Confirmatory Analysis
 
-As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see Table 2 [*note: Table 2 will contain the intercept, coefficients, SE and R^2^ values for the GLMM, as well as indications of which terms are significant.*]). 
+As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see below). 
 
-We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).
+<!--We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).-->
 
-[*Single test and justification*: If we find that the Profile Type x Primed interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]
+I obtained seven pilot responses. Two were from others (I posted a link to my Qualtrics survey on Facebook) and five were from myself. One is excluded from the analysis because of the low standard deviation of the responses. 
 
+Using the pilot data, we see no significant terms in the GLM model. When I ran an initial pilot with two responses generated by me (one per condition), where I consciously tried to put in data that would match the hypothesis, the model didn't give any signficant results, but did have coefficients with the magnitudes and signs that I expected. (Beta_intercept = 75.3, Beta_ai = 8.67, Beta_primed = 10.0, Beta_primed_x_ai = 57.3 -- see the data in pilot_data_2_responses.csv).
+
+[*Single test and justification*: If we find that the AI x Primed interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]
+
+```{r}
+lme(meanScore ~ ai * condition, random=~ 1|ResponseId,data=processed_data)
+```
 
 ```{r, echo=FALSE}
 reviews <- tibble("AI Score"=c("5 (most AI-like)", "1.75 (most human-like)"), "Profile Text"=c("Hey, I'm an health nut and entrepreneur. Enjoy cooking, reading, writing. Favorite restaurant nearby: Momofuku Ssam bar. Favorite weird activity nearby: Russian Baths on E. 10th St. Heaven is three grocery stores and a farmer's market within two blocks (Trader Joe's, Whole Foods, Westside Market, farmer's market", "I am a musician that travels with my band a lot. I have a place in Hawaii as well that I spend time in. I'm clean. funky. and a fun artist. Love yoga, books, writing, singing, dancing, dj'ing, art, and the list goes onnn. "))

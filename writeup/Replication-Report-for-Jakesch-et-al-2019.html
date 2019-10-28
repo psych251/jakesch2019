@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jacob Ritchie (jritchie@stanford.edu)" />
 
-<meta name="date" content="2019-10-20" />
+<meta name="date" content="2019-10-27" />
 
 <title>Replication of Experiment 3 by Jakesch et. al. (2019, ACM CHI Conference on Human Factors in Computing Systems)</title>
 
@@ -257,7 +257,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Replication of Experiment 3 by Jakesch et. al. (2019, ACM CHI Conference on Human Factors in Computing Systems)</h1>
 <h4 class="author">Jacob Ritchie (<a href="mailto:jritchie@stanford.edu">jritchie@stanford.edu</a>)</h4>
-<h4 class="date">October 20, 2019</h4>
+<h4 class="date">October 27, 2019</h4>
 
 </div>
 
@@ -271,14 +271,17 @@ div.tocify {
 <div id="links" class="section level3">
 <h3>Links</h3>
 <p>See <a href="http://rpubs.com/jritch/jakesch2019_proposal" class="uri">http://rpubs.com/jritch/jakesch2019_proposal</a> for the original project proposal.</p>
-<p>See <a href="http://github.com/psych251/jakesch2019" class="uri">http://github.com/psych251/jakesch2019</a> for the complete project.</p>
+<p>See <a href="http://rpubs.com/jritch/jakesch2019" class="uri">http://rpubs.com/jritch/jakesch2019</a> for the most recent project report.</p>
+<p>See <a href="http://github.com/psych251/jakesch2019" class="uri">http://github.com/psych251/jakesch2019</a> for the complete GitHub project.</p>
+<p>See <a href="https://stanforduniversity.qualtrics.com/jfe/form/SV_5uM01U1dpW8KJDv" class="uri">https://stanforduniversity.qualtrics.com/jfe/form/SV_5uM01U1dpW8KJDv</a> for the Qualtrics survey.</p>
+<p>See <a href="https://workersandbox.mturk.com/requesters/A38O2BV2MPHCQD/projects?ref=w_pl_prvw" class="uri">https://workersandbox.mturk.com/requesters/A38O2BV2MPHCQD/projects?ref=w_pl_prvw</a> for the Amazon Mechanical Turk listing.</p>
 </div>
 </div>
 <div id="methods" class="section level2">
 <h2>Methods</h2>
 <div id="power-analysis" class="section level3">
 <h3>Power Analysis</h3>
-<p>To be conducted during the week of Oct 21, after this material is covered in class.</p>
+<p>To be conducted on Monday Oct 29 after power analysis is covered in class.</p>
 <p>The original paper reports a large effect size in Experiment 3 (total R<sup>2</sup> = 0.48), so we anticipate that a power analysis will show that smaller sample is needed than in the original study.</p>
 <p>In terms of feasibility, the original experiment required 323 participants working for six minutes each, resulting in 32.3 person-hours of work in total, which is not feasible given the budget available for the project. This is why this replication focuses on only one of the three treatment conditions.</p>
 </div>
@@ -297,7 +300,7 @@ div.tocify {
 <blockquote>
 <p>“In the final design, we explained the AI system as follows: ‘To help hosts create profiles that are more attractive, this site provides a computer system using artificial intelligence that will write the description for hosts. The hosts simply enter some information and the artificial intelligence system generates the profile.’ The participants in the treatment group then watched a 10-second demo video of a mock-up AI system… In the video, an animation depicts a system automatically generating text for an Airbnb profile from a Facebook profile”</p>
 </blockquote>
-<p>We used the three-point trustworthiness rating scale created for the original experiment:</p>
+<p>We used the three-item trustworthiness rating scale created for the original experiment (each item ranged from 0-100):</p>
 <blockquote>
 <p>“1. This person maintains a clean, safe, and comfortable household. 2. This person will be concerned about satisfying my needs during the stay. 3. This person will not intentionally harm, overcharge, or scam me.”</p>
 </blockquote>
@@ -310,7 +313,8 @@ div.tocify {
 <blockquote>
 <p>“Participants also answered demographic questions (gender, age, education, and residential neighborhood type), as well as free-form questions explaining how they rated the profiles. We finally asked what they thought was the purpose of this study, and, in the treatment group, whether they had comments on the system.”</p>
 </blockquote>
-<p>We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not included in the authors’ publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.</p>
+<p>We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not all included in the authors’ publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.</p>
+<p>Note - I found that many of the question prompts were available in the authors “data_study3.csv” file. However, I still need to contact them to get the few question wordings that are not there.</p>
 <table>
 <caption>
 Table 1: The top ‘human-like’ and ‘AI-like’ sample profiles used in Experiment 3.
@@ -371,12 +375,13 @@ I am a musician that travels with my band a lot. I have a place in Hawaii as wel
 </blockquote>
 <p>We contacted the authors to ask for the exact wording of their attentiveness tests (since it is not clear from the source they refer to which exact linguistic attentiveness check was used).</p>
 <p>The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. (We first calculated Cronbach’s alpha for the three items to validate that this was acceptable).</p>
-<p>Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants’ trustworthiness ratings: <code>lme(rating ~ profile_type * condition, random=~ 1|subject)</code>.</p>
+<p>Then, we fit a generalized linear mixed model (GLMM) with random per-participant effects to each participants’ trustworthiness ratings: <code>lme(meanScore ~ ai * condition, random=~ 1|subject)</code>.</p>
 </div>
 <div id="differences-from-original-study" class="section level3">
 <h3>Differences from original study</h3>
 <p>We used a lower rate of compensation than the original study (7.25 USD/hour in the replication compared to 12 USD/hour in the original study), which may have resulted in quicker and less thoroughly considered answers if the crowd workers compensated for the lower rate of pay by completing the task more quickly. However, we don’t expect that this significantly impacted the results.</p>
 <p>Because of the limited resources available for the replication, we only replicated one of the three treatment conditions (“labeled”, “unlabeled” and “primed’) from the original paper (the”primed&quot; condition). However, since the three treatment conditions produced similar results in the original study, and the ‘primed’ treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.</p>
+<p>During analysis of the pilot data I realized that there were some issues with the randomization of the different conditions. In the original experiment, participants saw 5 of the 15 “AI-generated” profiles and 5 of the 15 “human-generated” profiles, in a random order. The way I currently have the Qualtrics survey set up, the participants see the ten profiles in two blocks each (5 of the 15 “human” profiles and 5 of the 15 “AI” profiles). The order within these blocks is randomized, as is the order of the blocks, but the “human” and “AI” profiles are not mixed together as they were in the original. I will fix this error in randomization ahead of pilot B, since it might otherwise create an experimental confound. This might result in me changing some of my code for processing the raw Qualtrics data, but the rest of the code should be unchanged.</p>
 </div>
 <div id="methods-addendum-post-data-collection" class="section level3">
 <h3>Methods Addendum (Post Data Collection)</h3>
@@ -398,12 +403,113 @@ I am a musician that travels with my band a lot. I have a place in Hawaii as wel
 <h2>Data Preparation</h2>
 <p>We excluded responses that met the exclusion criteria described in the original paper.</p>
 <p>For each profile, the mean of the three items in the trustworthiness scale was calculated and used as an overall trustworthiness rating, as done in the original study.</p>
+<pre class="r"><code>responses &lt;- read.csv(file=&quot;pilot_data_7_responses.csv&quot;) %&gt;% 
+  # filter out the Qualtrics header info lines
+  # select only the columns needed for the confirmatory analysis
+  filter(!between(row_number(),1,2)) %&gt;% 
+  # filter out participants who did not consent 
+  # or who revoked consent after the debrief
+  # or who failed one of the two attention check questions
+  filter(
+    Consent == 'I CONSENT to take part in the study.',
+    debrief_agree == &quot;I AGREE that the data collected during the study may be included for the purpose of the study.&quot;,
+    att_check_1 == &quot;John is easy to see.&quot;,
+    att_check_2 == &quot;I am traveling and the person in the profile offers to host me.&quot;
+  ) %&gt;%
+  select(starts_with(&quot;X&quot;), -contains(&quot;ai_score&quot;), c(&quot;ResponseId&quot;))
+
+long_responses &lt;- responses %&gt;% 
+  gather (measurement, score, -c(&quot;ResponseId&quot;)) %&gt;% 
+  mutate(
+    score = as.numeric(score),
+    measurement = gsub('.{2}$', '', measurement), 
+    # ai is TRUE if the profile is &quot;ai-generated, 
+    # and FALSE if the profile is &quot;human-generated&quot;
+    ai = grepl(&quot;ai&quot;, measurement), 
+    # condition is FALSE if the participant is in the control condition
+    # and TRUE if they are in the primed condition
+    condition = grepl(&quot;primed&quot;,measurement),
+    # this assigns each response a profile number that corresponds
+    # to the numbers from the original experiment's csv file
+    # profiles 0-15 are &quot;AI&quot;, 16-30 are &quot;human&quot;
+    profile_number = as.numeric(sub(&quot;X([0-9]*)_.*&quot;,&quot;\\1&quot;,measurement)) 
+                    + 15 * (1 - as.numeric(ai)), 
+    # which of the three items on the 3-item trustworthiness scale is this? 
+    item_number = as.numeric(str_sub(measurement,-1,-1))
+  )</code></pre>
+<pre><code>## Warning: attributes are not identical across measure variables;
+## they will be dropped</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>long_responses_grouped &lt;- long_responses %&gt;%
+  group_by(ResponseId,profile_number,condition,ai) %&gt;%
+  summarize(meanScore = mean(score, na.rm = T)) %&gt;% 
+  filter(!is.na(meanScore)) %&gt;% 
+  ungroup()
+
+# for each participant, calculate their average trustworthiness rating
+# and the std. deviation of their ratings
+participant_average_rating = long_responses_grouped %&gt;% group_by(ResponseId) %&gt;% summarize(meanRating = mean(meanScore),
+          sdRating = sd(meanScore)                                                          )
+# calculate the mean std. deviation and mean 
+# of ALL per-participant average trustworthiness ratings
+rating_mean = mean(participant_average_rating$meanRating)
+rating_sd = sd(participant_average_rating$meanRating)
+
+# get list of participants to exclude
+# based on either overly uniform scores, 
+# or on an extreme average score
+participants_to_exclude = participant_average_rating %&gt;% filter((meanRating &gt; rating_mean + 2 * rating_sd) | meanRating &lt; (rating_mean - 2 * rating_sd) | (sdRating &lt; 5.0) ) %&gt;% select(ResponseId)
+
+# for participants in the control condition, we only care about the &quot;Page.Submit&quot;
+# value of each rating question page
+control_timing_data &lt;- responses %&gt;% gather(time_interval, time, contains(&quot;timing_&quot;), -contains(&quot;Click&quot;)) %&gt;% select(time_interval,time,ResponseId) %&gt;% group_by(ResponseId) %&gt;% summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %&gt;% filter(meanRatingTime &gt; 0)</code></pre>
+<pre><code>## Warning: attributes are not identical across measure variables;
+## they will be dropped</code></pre>
+<pre class="r"><code># For participants in the primed condition, we have to add up the values for the time 
+# They spend on the AI Score rating and the Trustworthiness rating
+primed_timing_data &lt;- responses %&gt;% 
+  gather(time_interval, time, contains(&quot;timing1&quot;), contains(&quot;timing2&quot;), -contains(&quot;Click&quot;)) %&gt;% 
+  mutate(profile_number = as.numeric(sub(&quot;X([0-9]*)_.*&quot;,&quot;\\1&quot;,time_interval))) %&gt;%
+  select(time_interval,time,ResponseId,profile_number) %&gt;% group_by(ResponseId,profile_number) %&gt;%  
+  summarize(time = sum(as.numeric(time), na.rm = T)) %&gt;% 
+  ungroup() %&gt;% group_by(ResponseId) %&gt;% 
+  summarize(meanRatingTime = mean(as.numeric(time),na.rm=T)) %&gt;% filter(meanRatingTime &gt; 0)</code></pre>
+<pre><code>## Warning: attributes are not identical across measure variables;
+## they will be dropped</code></pre>
+<pre class="r"><code>timing_data = rbind(control_timing_data,primed_timing_data)
+
+participants_to_exclude_based_on_timing &lt;- timing_data %&gt;% filter (meanRatingTime &lt; 5.0) %&gt;% select(ResponseId)
+
+# combine this table
+participants_to_exclude = rbind(participants_to_exclude, participants_to_exclude_based_on_timing)
+
+# then - filter them out.
+processed_data &lt;- long_responses_grouped %&gt;% filter(!(ResponseId %in% participants_to_exclude$ResponseId))</code></pre>
 </div>
 <div id="confirmatory-analysis" class="section level2">
 <h2>Confirmatory Analysis</h2>
-<p>As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see Table 2 [<em>note: Table 2 will contain the intercept, coefficients, SE and R<sup>2</sup> values for the GLMM, as well as indications of which terms are significant.</em>]).</p>
-<p>We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p &lt; XXX).</p>
-<p>[<em>Single test and justification</em>: If we find that the Profile Type x Primed interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]</p>
+<p>As described in the planned analysis section we fit a GLMM to the participants trustworthiness ratings (see below).</p>
+<!--We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).-->
+<p>I obtained seven pilot responses. Two were from others (I posted a link to my Qualtrics survey on Facebook) and five were from myself. One is excluded from the analysis because of the low standard deviation of the responses.</p>
+<p>Using the pilot data, we see no significant terms in the GLM model. When I ran an initial pilot with two responses generated by me (one per condition), where I consciously tried to put in data that would match the hypothesis, the model didn’t give any signficant results, but did have coefficients with the magnitudes and signs that I expected. (Beta_intercept = 75.3, Beta_ai = 8.67, Beta_primed = 10.0, Beta_primed_x_ai = 57.3 – see the data in pilot_data_2_responses.csv).</p>
+<p>[<em>Single test and justification</em>: If we find that the AI x Primed interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]</p>
+<pre class="r"><code>lme(meanScore ~ ai * condition, random=~ 1|ResponseId,data=processed_data)</code></pre>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: processed_data 
+##   Log-restricted-likelihood: -229.2453
+##   Fixed: meanScore ~ ai * condition 
+##          (Intercept)               aiTRUE        conditionTRUE 
+##            48.875190             9.627455             6.106158 
+## aiTRUE:conditionTRUE 
+##           -37.906497 
+## 
+## Random effects:
+##  Formula: ~1 | ResponseId
+##         (Intercept) Residual
+## StdDev:    21.00317 11.64242
+## 
+## Number of Observations: 60
+## Number of Groups: 6</code></pre>
 <div id="exploratory-analyses" class="section level3">
 <h3>Exploratory analyses</h3>
 <p><strong>TODO</strong></p>
