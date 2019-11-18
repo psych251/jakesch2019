@@ -1,0 +1,16 @@
+Power for predictor 'type:condition', (95% confidence interval),
+by largest value of subject:
+
+106:  7.80% ( 6.21,  9.64) - 30 rows
+136: 22.00% (19.47, 24.70) - 150 rows
+163: 37.30% (34.29, 40.38) - 260 rows
+191: 49.70% (46.56, 52.85) - 380 rows
+233: 60.60% (57.49, 63.64) - 500 rows
+259: 69.20% (66.24, 72.05) - 610 rows
+301: 76.40% (73.64, 79.00) - 730 rows
+35: 83.10% (80.63, 85.37) - 850 rows
+55: 86.40% (84.12, 88.46) - 960 rows
+89: 89.70% (87.65, 91.51) - 1080 rows
+
+# Note - 10 responses per subject, so 1080 rows = 108 participants 
+# (54 participants per condition after exclusions)
