@@ -16,7 +16,7 @@ output:
 
 In the ACM CHI 2019 paper "AI-Mediated Communication: How the Perception that Profile Text was Written by AI Affects Trustworthiness"  (Jakesch et. al. 2019), the authors conducted a Wizard-of-Oz crowdworker study to test the hypothesis that users would react to text from an online marketplace listing differently when they believed this text had been generated automatically using "artificial intelligence" (AI) ^[Otherwise known as machine learning or statistical function approximation.]. In particular, they investigated whether the belief that an AirBnB host profile was written by AI would decrease the perceived trustworthiness of the host described in the profile. They found evidence for what they called the "Replicant Effect": that the belief that a profile was written by AI decreased perceived trustworthiness, but *only* for the case where participants believed that some, but not all profiles were written by AI.
  
-In this replication, we focus on independently confirming one part of the Replicant Effect - that when presented with a mixed set containing both "human-generated" and "AI-generated" profiles, participants will assign lower trustworthiness to those profiles that seem the most "AI-like". We do this by replicating Experiment 3 from the original paper, which found that "AI-like" papers were given significantly significantly lower trustworthiness scores by participants in three treatment conditions where they were told that a subset of the profiles they were rating were AI-generated^[In reality, all of the profiles were human-generated.]. We focus on the "primed" treatment condition of Experiment 3, which resulted in the largest observed effect size  In this treatment, participants are asked to rate how likely they believed it was that each profile had been written by AI before they assigned it a trustworthiness rating.
+In this replication, we focus on independently confirming one part of the Replicant Effect - that when presented with a mixed set containing both "human-generated" and "AI-generated" profiles, participants will assign lower trustworthiness scores to those profiles that seem the most "AI-like". We do this by replicating Experiment 3 from the original paper, which found that "AI-like" profiles were given significantly significantly lower trustworthiness scores by participants in three treatment conditions where they were told that a subset of the profiles they were rating were AI-generated^[In reality, all of the profiles were human-generated.]. We focus on the "primed" treatment condition of Experiment 3, which resulted in the largest observed effect size. In this treatment, participants are asked to rate how likely they believed it was that each profile was AI-generated before they assigned that profile a trustworthiness rating.
 
 We leave to future work a replication of the other half of the Replicant Effect - that when participants are presented with a sample of profiles and told that all the profiles are AI-generated, then they assign the same trustworthiness ratings as when they believe that all the profiles are human-written.
 
@@ -28,13 +28,6 @@ See http://rpubs.com/jritch/jakesch2019 for the most recent project report.
 
 See http://github.com/psych251/jakesch2019 for the complete GitHub project.
 
-See https://stanforduniversity.qualtrics.com/jfe/form/SV_a4WTJ0FvjqS5vJX
-for the Qualtrics survey.
-
-And https://stanforduniversity.ca1.qualtrics.com/Q/EditSection/Blocks?ContextSurveyID=SV_a4WTJ0FvjqS5vJX for the survey code (shared with Julie)
-
-See https://workersandbox.mturk.com/?filters%5Bsearch_term%5D=jacob+ritchie for the Amazon Mechanical Turk listing (on the Requester Sandbox - for testing purposes only).
-
 ## Methods
 
 ### Power Analysis
@@ -43,12 +36,16 @@ The original paper reports a large effect size in Experiment 3 (total R^2^ = 0.4
 
 In terms of feasibility, the original experiment required 323 participants working for six minutes each, resulting in 32.3 person-hours of work in total, which is not feasible given the budget available for the project. This is why this replication focuses on only one of the three treatment conditions.
 
-Using the 'simr' package, we determined that using the original sample size would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (see below), assuming participants are excluded at similar rates to the original study. Power analysis code is located in the github repository in the power_analysis.R file, and results of a power curve analysis are reported in power_curve.txt
+Using the 'simr' package, we determined that using the original sample size (108 total participants after exclusions, across the two conditions we planned to focus on - control and primed) would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (see below), assuming participants are excluded at similar rates to the original study.
+
+To ensure approximately 80% power, we would require 77 total participants (this gives 80.05% power, 95% CI: [78.78, 81.28]). To ensure approximately 95% power, we would require 130 total participants (this gives 95.03% power, 95% CI: [94.31, 95.68]). 
+
+Power analysis code is located in the github repository in the power_analysis.R file, and results of a power curve analysis are reported in power_curve.txt
 
 
 ### Planned Sample
 
-Based on the power analysis, we planned to recruit 85 participants per condition (slightly above the number in the original sample), which should give above 90% power to retrieve the effect of interest.
+Based on the power analysis, we planned to recruit 170 participants (85 participants per condition) slightly above the number in the original sample, which would give above 90% power to retrieve the effect of interest assuming that we would exclude participants at a similar rate.
 
 As in the original paper, we recruited participants from Amazon Mechanical Turk. We used the participation criteria from the original paper:
 
@@ -56,31 +53,32 @@ As in the original paper, we recruited participants from Amazon Mechanical Turk.
 
 ### Materials
 
-We used the materials described in the original paper.
+We reproduced the materials described in the original paper, which were mostly available from the associated OSF repository: https://osf.io/qg3m2/
 
 To explain the Wizard-of-Oz AI system to the participants in the treatment condition, we used the explanation and demo video from the original experiment:
 
 >"In the final design, we explained the AI system as follows: 'To help hosts create profiles that are more attractive, this site provides a computer system using artificial intelligence that will write the description for hosts. The hosts simply enter some information and the artificial intelligence system generates the profile.' The participants in the treatment group then watched a 10-second demo video of a mock-up AI system... In the video, an animation depicts a system automatically generating text for an Airbnb profile from a Facebook profile"
 
-We used the three-item trustworthiness rating scale created for the original experiment (each item ranged from 0-100):
+We used the three-item trustworthiness rating scale from the original experiment (each item ranged from (0%) "Not Confident" to (100%) "Highly Confident", in increments of 10):
 
->"1. This person maintains a clean, safe, and comfortable household.
-2. This person will be concerned about satisfying my needs during the stay.
-3. This person will not intentionally harm, overcharge, or scam me."
+>"1. This person maintains a clean, safe, and comfortable household."
 
-And also used the generalized trust and AI attitude scales that were used in the original experiment. In the treatment condition, we used the AI score measurement described in the original study:
+>"2. This person will be concerned about satisfying my needs during the stay."
+
+>"3. This person will not intentionally harm, overcharge, or scam me."
+
+We also used the generalized trust and AI attitude scales from the original experiment. In the treatment condition, we used the AI score measurement described in the original study:
 
 > '...respondents indicated whether they thought each profile was (1) "Definitely Human-written" to (6) "Definitely AI-generated" on a 6-point Likert-style scale. We refer to this measurement as the "AI score" of a profile." '
 
-We used the original set of 30 sample profiles from the original paper's Experiment 3, which we downloaded from the project's OSF repository. These had been determined in a previous mTurk task to be the 15 most "AI-like" and 15 most "human-like" from a larger sample of profiles, using the AI score measurement described above (see Table 1 for an example).
+We used the original set of 30 sample profiles from the original paper's Experiment 3, which we downloaded from the project's OSF repository. These had been determined in a previous mTurk task to be the 15 most "AI-like" and 15 most "human-like" from a larger sample of profiles, using the AI score measurement described above (see Table 1 for examples).
 
 A variety of other questions were also asked, as in the original study:
 
 > "Participants also answered demographic questions (gender, age, education, and residential neighborhood type), as well as free-form questions explaining how they rated the profiles. We finally asked what they thought was the purpose of this study, and, in the treatment group, whether they had comments on the system."
 
-We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not all included in the authors' publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment.
+We contacted the authors to request a copy of the exact questions and instructions given to the participants (which were not all initially included in the authors' publically available OSF repository), including the video prompt. This ensured that the same questions were used, and that the framing and context of each question was as close as possible to the original experiment. The original authors were very responsive and promptly made the requested materials available.
 
-Note - I found that many of the question prompts were available in the authors "data_study3.csv" file. However, I still need to contact them to get the few question wordings that are not there.
 
 ```{r, include=FALSE}
 library(stats)
@@ -102,7 +100,7 @@ knitr::kable(reviews,caption="Table 1: The top 'human-like' and 'AI-like' sample
 
 ### Procedure
 
-We followed the procedure from the original paper exactly (except that we only had one treatment group, instead of three):
+We followed the procedure from the original paper exactly, with the exception that we only had one treatment group rather than three:
 
 >"We randomly assigned participants to one of four groups [*note: two in the replication study*]: The control group participants were told they were rating regular profiles written by the host (akin to the "host-written" group in Study 1). In the treatment groups, participants were told that "some of the profiles [they] see have been generated by a computer system using artificial intelligence, while others have been written by the host." Treatment group participants also viewed the [demo video]."
 
@@ -122,21 +120,17 @@ We followed the exclusion criteria from the original paper:
 
 > "We excluded responses that had failed the linguistic attentiveness check borrowed from Munro et al. [43] as well as participants who did not select the right scenario ("I am traveling and the person in the profile offers to host me.") in a second attentiveness test. We excluded workers whose median rating time per profile was less than five seconds and workers with mostly uniform responses (SD < 5.0). Furthermore, we removed participants whose average trust rating fell outside the mean +/- 2 SD statistic of participant rating averages, leaving us with 389 subjects."
 
-We contacted the authors to ask for the exact wording of their attentiveness tests (since it is not clear what exactly the scenario description given for the second attentiveness test was).
-
-The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. (We first calculated Cronbach's alpha for the three items to validate that this was acceptable).
+The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating. 
 
 Then, we fit a linear mixed-effects model (LME) with random per-participant effects to each participants' trustworthiness ratings: `lme(meanScore ~ ai * condition, random=~ 1|ResponseId)`.
+
+We chose the interaction term from this model as the key statistic of interest. If we found that the AI x Condition interaction in this model is significant and has a negative Beta coefficient, then we would consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we would consider the experiment to not have successfully been replicated.
 
 ### Differences from original study
 
 We used a lower rate of compensation than the original study (7.25 USD/hour in the replication compared to 12 USD/hour in the original study), which may have resulted in quicker and less thoroughly considered answers if the crowd workers compensated for the lower rate of pay by completing the task more quickly. However, we don't expect that this significantly impacted the results.
 
 Because of the limited resources available for the replication, we only replicated one of the three treatment conditions ("labeled", "unlabeled" and "primed') from the original paper (the "primed" condition). However, since the three treatment conditions produced similar results in the original study, and the 'primed' treatment condition resulted in the largest effect size, we believe that testing the replicability of this condition is sufficient.
-
-During analysis of the pilot data I realized that there were some issues with the randomization of the different conditions. In the original experiment, participants saw 5 of the 15 "AI-generated" profiles and 5 of the 15 "human-generated" profiles, in a random order. The way I currently have the Qualtrics survey set up, the participants see the ten profiles in two blocks each (5 of the 15 "human" profiles and 5 of the 15 "AI" profiles). The order within these blocks is randomized, as is the order of the blocks, but the "human" and "AI" profiles are not mixed together as they were in the original. I will fix this error in randomization ahead of pilot B, since it might otherwise create an experimental confound. This might result in me changing some of my code for processing the raw Qualtrics data, but the rest of the code should be unchanged.
-
-Update: this has been fixed ahead of pilot B.
 
 ### Methods Addendum (Post Data Collection)
 **TODO**
@@ -157,23 +151,20 @@ For each profile, the mean of the three items in the trustworthiness scale was c
 
 
 ```{r}
-responses <- read.csv(file="pilot_b_test_data_2_responses.csv") %>% 
+responses <- read.csv(file="../../pilot_b_data_mturk.csv") %>% 
   # filter out the Qualtrics header info lines
   # select only the columns needed for the confirmatory analysis
   filter(!between(row_number(),1,2)) %>% 
-  # filter out participants who did not consent 
-  # or who revoked consent after the debrief
-  # or who failed one of the two attention check questions
-  # currently commented out because in one of my two test runs 
-  # I forgot to complete the attention check
-  # 
-  #     filter(
-  #     Consent == 'I CONSENT to take part in the study.',
-  #     debrief_agree == "I AGREE that the data collected during the study may be included for the purpose of the study.",
-  #     att_check_1 == "John is easy to see.",
-  #     att_check_2 == "I am traveling and the person in the profile offers to host me.",
-  #     (ai_comprehension == "Some were generated by the AI system, some were written by the host." | ai_comprehension == "")
-  #   ) %>%
+   # filter out participants who did not consent 
+   # or who revoked consent after the debrief
+   # or who failed one of the two attention check questions
+       filter(
+       Consent == 'I CONSENT to take part in the study.',
+       debrief_agree == "I AGREE that the data collected during the study may be included for the purpose of the study.",
+       att_check_1 == "John is easy to see.",
+       att_check_2 == "I am traveling and the person in the profile offers to host me.",
+       (ai_comprehension == "Some were generated by the AI system, some were written by the host." | ai_comprehension == "")
+   ) %>%
 
 
   select(starts_with("X"), -contains("ai_score"),  c("ResponseId","condition","question_order")) %>% 
@@ -231,10 +222,9 @@ rating_sd = sd(participant_average_rating$meanRating)
 # or on an extreme average score
 participants_to_exclude = participant_average_rating %>% filter((meanRating > rating_mean + 2 * rating_sd) | meanRating < (rating_mean - 2 * rating_sd) | (sdRating < 5.0) ) %>% select(ResponseId)
 
-# for participants in the control condition, we only care about the "Page.Submit"
+# we only care about the "Page.Submit"
 # value of each rating question page
 timing_data <- responses %>% gather(time_interval, time, contains("timing_"), -contains("Click")) %>% select(time_interval,time,ResponseId) %>% group_by(ResponseId) %>% summarize(medianRatingTime = median(as.numeric(time),na.rm=T)) %>% filter(medianRatingTime > 0)
-
 
 participants_to_exclude_based_on_timing <- timing_data %>% filter (medianRatingTime < 5.0) %>% select(ResponseId)
 
@@ -253,13 +243,6 @@ As described in the planned analysis section we fit an LME to the participants t
 
 <!--We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).-->
 
-I obtained eight pilot responses. Three were from other people (I posted a link to my Qualtrics survey on Facebook) and five were from myself. None of the other people reported issues, but I noticed a few problems that I fixed (missing question text, inconsistent default slider values, etc.). One response is excluded from the analysis because of the low standard deviation of the ratings. 
-
-For the new pilot B experimental setup, I added two test responses myself.
-
-Using the test data, we see some significant terms in the model. When I entered my pilot responses, I usually consciously tried to put in data that would match the hypothesis. While the model doesn't show significant results, it does have coefficients with the magnitudes and signs that I expected (e.g. AI x Condition interaction term has a negative Beta coefficient).
-
-[*Single test and justification*: If we find that the AI x Condition interaction is significant and has a negative Beta coefficient, then we consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we consider the experiment to not have successfully been replicated.]
 
 ```{r}
 model = lme(meanScore ~ ai * condition, random=~ 1|ResponseId,data=processed_data)
@@ -321,7 +304,7 @@ You can comment this section out prior to final report with data collection.
   Sample size, demographics, data exclusions based on rules spelled out in analysis plan
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
+  Any differences from what was described as the original plan, or none.
 
 
 ##Results

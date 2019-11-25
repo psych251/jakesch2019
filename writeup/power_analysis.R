@@ -21,6 +21,17 @@
 ########################################################################
 
 
+# Load packages
+library(ggplot2)
+library(RColorBrewer)
+library(stats)
+library(nlme)
+library(psy)
+library(MuMIn)
+library(Rmisc)
+library(tidyverse)
+library(simr)
+
 #####################################################################################
 #####################################################################################
 ###################################### STUDY 3 ###################################### 
@@ -164,6 +175,11 @@ model <- makeLmer(rating ~ type * condition + (1|subject),
                   fixef=c(69.32142857,1.80952381,0.08882784,-4.97619048), 
                   sigma=12.21032, data=small_data_3l)
 
-powerSim(model, fixed("type:condition", method="anova"), nsim=20)
+# Original sample size (108 total participants after exclusions -- gives ~90% power)
+powerSim(model, nsim=4000, test = fixed("type:condition",method="anova"))
 
-powerCurve(model, test=fixed("type:condition", method="anova"),along="subject")
+model_80_power <- extend(model, along="subject", n=77)
+powerSim(model_80_power, nsim=4000, test = fixed("type:condition",method="anova"))
+
+model_95_power <- extend(model, along="subject", n=130)
+powerSim(model_95_power, nsim=4000, test = fixed("type:condition",method="anova"))
