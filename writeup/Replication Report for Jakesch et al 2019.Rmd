@@ -28,6 +28,8 @@ See http://rpubs.com/jritch/jakesch2019 for the most recent project report.
 
 See http://github.com/psych251/jakesch2019 for the complete GitHub project.
 
+See https://stanforduniversity.qualtrics.com/jfe/form/SV_a4WTJ0FvjqS5vJX for a link to the experimental setup on Qualtrics.
+
 ## Methods
 
 ### Power Analysis
@@ -36,7 +38,7 @@ The original paper reports a large effect size in Experiment 3 (total R^2^ = 0.4
 
 In terms of feasibility, the original experiment required 323 participants working for six minutes each, resulting in 32.3 person-hours of work in total, which is not feasible given the budget available for the project. This is why this replication focuses on only one of the three treatment conditions.
 
-Using the 'simr' package, we determined that using the original sample size (108 total participants after exclusions, across the two conditions we planned to focus on - control and primed) would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (see below), assuming participants are excluded at similar rates to the original study.
+Using the 'simr' package, we determined that using the original sample size (108 total participants after exclusions, across the two conditions we planned to focus on - control and primed) would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (the AI x Condition interaction term in the linear mixed-effects model), assuming participants are excluded at similar rates to the original study.
 
 To ensure approximately 80% power, we would require 77 total participants (this gives 80.05% power, 95% CI: [78.78, 81.28]). To ensure approximately 95% power, we would require 130 total participants (this gives 95.03% power, 95% CI: [94.31, 95.68]). 
 
@@ -124,7 +126,7 @@ The mean of the three items in the trustworthiness scale was averaged to create 
 
 Then, we fit a linear mixed-effects model (LME) with random per-participant effects to each participants' trustworthiness ratings: `lme(meanScore ~ ai * condition, random=~ 1|ResponseId)`.
 
-We chose the interaction term from this model as the key statistic of interest. If we found that the AI x Condition interaction in this model is significant and has a negative Beta coefficient, then we would consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we would consider the experiment to not have successfully been replicated.
+We chose the interaction term from this model as the key statistic of interest. If we found that the AI x Condition interaction in this model is significant and has a negative Beta coefficient, then we would consider the experiment to have been successfully replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we would consider the experiment to not have successfully been replicated.
 
 ### Differences from original study
 
@@ -246,14 +248,9 @@ As described in the planned analysis section we fit an LME to the participants t
 
 
 ```{r}
-model = lme(meanScore ~ ai * condition, random=~ 1|ResponseId,data=processed_data)
+model = lme(meanScore ~ ai * condition, random =~ 1|ResponseId, data = processed_data)
 model
 anova(model)
-```
-
-```{r, echo=FALSE}
-reviews <- tibble("AI Score"=c("5 (most AI-like)", "1.75 (most human-like)"), "Profile Text"=c("Hey, I'm an health nut and entrepreneur. Enjoy cooking, reading, writing. Favorite restaurant nearby: Momofuku Ssam bar. Favorite weird activity nearby: Russian Baths on E. 10th St. Heaven is three grocery stores and a farmer's market within two blocks (Trader Joe's, Whole Foods, Westside Market, farmer's market", "I am a musician that travels with my band a lot. I have a place in Hawaii as well that I spend time in. I'm clean. funky. and a fun artist. Love yoga, books, writing, singing, dancing, dj'ing, art, and the list goes onnn. "))
-#knitr::kable(reviews,caption="Table 1: The top 'human-like' and 'AI-like' sample profiles used in Experiment 3.") %>%  column_spec(1, width="12em")
 ```
 
 ## Exploratory analyses

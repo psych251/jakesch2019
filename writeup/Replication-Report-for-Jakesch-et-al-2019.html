@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jacob Ritchie (jritchie@stanford.edu)" />
 
-<meta name="date" content="2019-11-24" />
+<meta name="date" content="2019-12-03" />
 
 <title>Replication of Experiment 3 by Jakesch et. al. (2019, ACM CHI Conference on Human Factors in Computing Systems)</title>
 
@@ -1521,7 +1521,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Replication of Experiment 3 by Jakesch et. al. (2019, ACM CHI Conference on Human Factors in Computing Systems)</h1>
 <h4 class="author">Jacob Ritchie (<a href="mailto:jritchie@stanford.edu">jritchie@stanford.edu</a>)</h4>
-<h4 class="date">November 24, 2019</h4>
+<h4 class="date">December 03, 2019</h4>
 
 </div>
 
@@ -1537,6 +1537,7 @@ div.tocify {
 <p>See <a href="http://rpubs.com/jritch/jakesch2019_proposal" class="uri">http://rpubs.com/jritch/jakesch2019_proposal</a> for the original project proposal.</p>
 <p>See <a href="http://rpubs.com/jritch/jakesch2019" class="uri">http://rpubs.com/jritch/jakesch2019</a> for the most recent project report.</p>
 <p>See <a href="http://github.com/psych251/jakesch2019" class="uri">http://github.com/psych251/jakesch2019</a> for the complete GitHub project.</p>
+<p>See <a href="https://stanforduniversity.qualtrics.com/jfe/form/SV_a4WTJ0FvjqS5vJX" class="uri">https://stanforduniversity.qualtrics.com/jfe/form/SV_a4WTJ0FvjqS5vJX</a> for a link to the experimental setup on Qualtrics.</p>
 </div>
 </div>
 <div id="methods" class="section level2">
@@ -1545,7 +1546,7 @@ div.tocify {
 <h3>Power Analysis</h3>
 <p>The original paper reports a large effect size in Experiment 3 (total R<sup>2</sup> = 0.48), so we anticipated that a power analysis would show that smaller sample is needed than in the original study.</p>
 <p>In terms of feasibility, the original experiment required 323 participants working for six minutes each, resulting in 32.3 person-hours of work in total, which is not feasible given the budget available for the project. This is why this replication focuses on only one of the three treatment conditions.</p>
-<p>Using the ‘simr’ package, we determined that using the original sample size (108 total participants after exclusions, across the two conditions we planned to focus on - control and primed) would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (see below), assuming participants are excluded at similar rates to the original study.</p>
+<p>Using the ‘simr’ package, we determined that using the original sample size (108 total participants after exclusions, across the two conditions we planned to focus on - control and primed) would provide 89.70% power (95% CI: [87.65, 91.51]) for the fixed effect of interest (the AI x Condition interaction term in the linear mixed-effects model), assuming participants are excluded at similar rates to the original study.</p>
 <p>To ensure approximately 80% power, we would require 77 total participants (this gives 80.05% power, 95% CI: [78.78, 81.28]). To ensure approximately 95% power, we would require 130 total participants (this gives 95.03% power, 95% CI: [94.31, 95.68]).</p>
 <p>Power analysis code is located in the github repository in the power_analysis.R file, and results of a power curve analysis are reported in power_curve.txt</p>
 </div>
@@ -1644,7 +1645,7 @@ I am a musician that travels with my band a lot. I have a place in Hawaii as wel
 </blockquote>
 <p>The mean of the three items in the trustworthiness scale was averaged to create an overall trustworthiness rating.</p>
 <p>Then, we fit a linear mixed-effects model (LME) with random per-participant effects to each participants’ trustworthiness ratings: <code>lme(meanScore ~ ai * condition, random=~ 1|ResponseId)</code>.</p>
-<p>We chose the interaction term from this model as the key statistic of interest. If we found that the AI x Condition interaction in this model is significant and has a negative Beta coefficient, then we would consider the experiment to have successfully been replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we would consider the experiment to not have successfully been replicated.</p>
+<p>We chose the interaction term from this model as the key statistic of interest. If we found that the AI x Condition interaction in this model is significant and has a negative Beta coefficient, then we would consider the experiment to have been successfully replicated - since this indicates that AI-like profiles were rated less trustworthy in the treatment condition (where participants are told some profiles are AI-generated) than in the control (where they believe all profiles to be human-generated). Otherwise, we would consider the experiment to not have successfully been replicated.</p>
 </div>
 <div id="differences-from-original-study" class="section level3">
 <h3>Differences from original study</h3>
@@ -1762,7 +1763,7 @@ processed_data &lt;- long_responses_grouped %&gt;% filter(!(ResponseId %in% part
 <h2>Confirmatory Analysis</h2>
 <p>As described in the planned analysis section we fit an LME to the participants trustworthiness ratings (see below).</p>
 <!--We found a significant Profile Type x Primed interaction term, with the following effect size (Beta = XXX, SE = XXX, p < XXX).-->
-<pre class="r"><code>model = lme(meanScore ~ ai * condition, random=~ 1|ResponseId,data=processed_data)
+<pre class="r"><code>model = lme(meanScore ~ ai * condition, random =~ 1|ResponseId, data = processed_data)
 model</code></pre>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: processed_data 
