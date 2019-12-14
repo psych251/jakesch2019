@@ -345,10 +345,7 @@ t.test(data_3l[data_3l$condition == 'primed' & data_3l$type == 'human',]$aiscore
        data_3l[data_3l$condition == 'primed' & data_3l$type == 'ai',]$aiscore)
 plot_d32
 
-
-#ggplot(data_3l %>% filter(condition %in% c('control','primed')), aes(x=condition,y=rating)) + geom_jitter(color="grey",alpha=0.8,width=.2) +  stat_summary(fun.y="mean", geom="line", size=1, aes(group = 1)) + stat_summary(fun.y=mean, geom="point",size=2.5)  + ylim(0,100) + facet_wrap(~profile,ncol=15) + theme_cowplot() + theme(axis.text.x = element_text(angle = 45,  hjust = 1))
-#ggsave("plot.png",height=9,width=9*1.61)
-#ggplot(data_3l, aes(x=type,y=aiscore,fill=type)) + geom_violin()
+#Export data
 
 original_processed_data = data_3l
 
