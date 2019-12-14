@@ -265,7 +265,7 @@ anova(model)
 
 ## Exploratory analyses
 
-In the exploratory analysis, we investigate the other model reported in the original paper, visualize the results of the main confirmatory analysis, reproduce the two relevant figures from the original paper, perform a small fixed-effects meta-analysis to pool the information from the original and replication studies, and do some exploratory data analysis and visualization to investigate possible profile-level differences.
+In the exploratory analysis, we investigate the other model reported in the original paper, visualize the results of the main confirmatory analysis, reproduce the two relevant figures from the original paper, perform a small fixed-effect meta-analysis to pool the information from the original and replication studies, and do some exploratory data analysis and visualization to investigate possible profile-level differences.
 
 ```{r, message=F, warning=F} 
 
@@ -442,9 +442,9 @@ plot_grid(p1, p2, align = "h", ncol = 2, rel_widths = c(1/2, 1/2))
 ```
 
 
-Considering the results observed so far, we then performed a small fixed effects meta-analysis with the results of the key statistical test of interest from the original study and our replication.
+Considering the results observed so far, we then performed a small fixed-effect meta-analysis with the results of the key statistical test of interest from the original study and our replication.
 
-Because this is a direct replication, a fixed effects meta-analysis is most appropriate; because the two studies were effectively identical, we assume that there is one true effect that is measured in both studies, and that all observed variation is due to sampling error [@Borenstein2010].
+Because this is a direct replication, a fixed-effect meta-analysis is most appropriate; because the two studies were effectively identical, we assume that there is one true effect that is measured in both studies, and that all observed variation is due to sampling error [@Borenstein2010].
 
 ```{r fig.cap="**Figure 4: Fixed-effect meta-analysis forest plot.**", fig.height=2}
 # From ../original_paper
@@ -500,7 +500,7 @@ It appears that there is significant variation in the effect of condition on sco
 ### Summary of Replication Attempt
 Based on the pre-registered key statistic of interest, we must consider this replication to either have failed or, at best, to represent a partial replication. 
 
-While we still see a difference in the raw data between mean trustworthiness ratings for the "Human" and "AI" profiles in the primed condition (67.9 vs. 64.4), the AI x Condition interaction term in the linear mixed effects model is not significant (Beta = -2.638, SE = 1.748, p = 0.13). The relevant coefficient is in the same direction as the coefficient in the original paper (Beta = -4.976, SE = 1.464, p < 0.001 ), but smaller in magnitude.
+While we still see a difference in the raw data between mean trustworthiness ratings for the "Human" and "AI" profiles in the primed condition (67.9 vs. 64.4), the AI x Condition interaction term in the linear mixed-effects model is not significant (Beta = -2.638, SE = 1.748, p = 0.13). The relevant coefficient is in the same direction as the coefficient in the original paper (Beta = -4.976, SE = 1.464, p < 0.001 ), but smaller in magnitude.
 
 One contributing factor is that the observed trustworthiness values in the control condition are significantly lower than those observed in the original paper (see Figures 1 and 2). The difference is significant enough that it seems unlikely to be purely due to sampling error, since the values in the replication fall well outside the 95% confidence intervals from the original study. It is possible that this reflects a change in opinion about online roomsharing services such as AirBnB over the time interval between the original and replication studies.
 
